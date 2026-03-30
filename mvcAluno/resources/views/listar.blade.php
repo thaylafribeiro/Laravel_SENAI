@@ -13,8 +13,8 @@
                     <th>ID</th>
                     <th>NOME</th>
                     <th>EMAIL</th>
-                    <th>Atualizar</th>
-                    <th>Deletar</th>
+                    <th>Atualizar✍🏻</th>
+                    <th>Deletar🗑️</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,13 @@
                         <td>
                             <a href="{{route('aluno.atualizar',$aluno->id)}}">Atualizar</a>
                         </td>
-                         <td>Faremos na próxima aula</td>
+                         <td>
+                            <form action="{{route('aluno.deletar', $aluno->id)}}" method="POST" onsubmit="return confirm('Deseja realmente excluir');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Excluir</button>
+                            </form>
+                         </td>
                     </tr>
                 @empty
                     <tr>
