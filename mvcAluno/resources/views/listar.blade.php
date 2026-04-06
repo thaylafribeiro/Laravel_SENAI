@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        table {
+            margin: 0 auto; 
+            text-align: center; 
+        }
+
+        th, td {
+            text-align: center; 
+            vertical-align: middle; 
+        }
+    </style>
+
 </head>
 <body>
     <h1>Relatório de Alunos<h1>
@@ -13,6 +26,9 @@
                     <th>ID</th>
                     <th>NOME</th>
                     <th>EMAIL</th>
+                    <th>ID TURMA</th>
+                    <th>SERIE</th>
+                    <th>NUM SALA</th>
                     <th>Atualizar✍🏻</th>
                     <th>Deletar🗑️</th>
                 </tr>
@@ -23,6 +39,9 @@
                         <td>{{$aluno->id}}</td>
                         <td>{{$aluno->nome}}</td>
                         <td>{{$aluno->email}}</td>
+                        <td>{{$aluno->turma?->id}}</td>
+                        <td>{{$aluno->turma?->serie}}</td>
+                        <td>{{$aluno->turma?->numSala}}</td>
                         <td>
                             <a href="{{route('aluno.atualizar',$aluno->id)}}">Atualizar</a>
                         </td>
@@ -30,13 +49,13 @@
                             <form action="{{route('aluno.deletar', $aluno->id)}}" method="POST" onsubmit="return confirm('Deseja realmente excluir');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Excluir</button>
+                                <button style="width: 100%; heigth: 350%" type="submit">Excluir</button>
                             </form>
                          </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3"> Nenehum Aluno encontrado</td>
+                        <td colspan="3"> Nenhum Aluno encontrado</td>
                     </tr>
                 @endforelse
             </tbody>    
