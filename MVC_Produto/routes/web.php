@@ -20,7 +20,8 @@ Route::put('/produto/{id}/update', [ProdutoController::class, 'update'])->name('
 
 Route::delete('/produto/{id}', [ProdutoController::class, 'deletar'])->name('produto.deletar');
 
-Route::get('/produto/detalhe', [ProdutoController::class, 'detalhe']);
+Route::get('/produto/detalhe/{id}', [ProdutoController::class, 'detalhe'])
+    ->name('produto.detalhe');
 
 Route::get('/setor/cadastrar', function(){
     return view('cadastroSetor');
@@ -29,3 +30,7 @@ Route::get('/setor/cadastrar', function(){
 Route::post('/setor/salvar',[SetorController::class, 'add'])->name('setor.salvar');
 
 Route::get('/setor/listar',[SetorController::class, 'listarSetor'])->name('setor.listar');
+
+Route::get('/detalhe/{id}', [ProdutoController::class, 'detalhe'])->name('produto.detalhe');
+
+

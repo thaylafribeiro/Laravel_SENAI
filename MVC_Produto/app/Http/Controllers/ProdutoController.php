@@ -48,6 +48,11 @@ class ProdutoController extends Controller{
         return redirect()->back()->with('success','Produto cadastrado com sucesso!');
     }
 
+    public function detalhe($id){
+        $produto = Produto::with(['setor','detalhe'])->findOrFail($id);
+        return view('detalhe', compact('produto'));
+    }
+
     public function atualizar($id){
         $produto = Produto::with('detalhe')->findOrFail($id);
         $setores = Setor::all();
@@ -67,14 +72,12 @@ class ProdutoController extends Controller{
 
         $produto = Produto::findOrFail($id);
 
-        // atualiza produto
         $produto->update([
             'nome' => $request->nome,
             'quantidade' => $request->quantidade,
             'preco' => $request->preco,
         ]);
 
-        // atualiza detalhe
         $produto->detalhe->update([
             'descricao' => $request->descricao,
             'tamanho' => $request->tamanho,
