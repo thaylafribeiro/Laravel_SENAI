@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\TurmaController;
+use App\Http\Controllers\InformacaoPessoalController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,4 +46,10 @@ Route::get('/turma/cadastrar', function(){
 
 Route::post('/turma/salvar', [TurmaController::class, 'add'])
     ->name('turma.salvar');
+
+Route::get('/informacoes', [InformacaoPessoalController::class, 'index']);
+
+Route::get('/informacoes/create', [InformacaoPessoalController::class, 'create']);
+
+Route::post('/informacoes', [InformacaoPessoalController::class, 'store']);
 ?>

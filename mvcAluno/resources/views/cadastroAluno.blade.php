@@ -19,14 +19,35 @@
             require value="{{ old('nome') }}"
         >
         <br><br>
+
         <label for="email">Email: </label>
         <input type="email" name="email" id="email" placeholder="Email..."
             required value="{{ old('email')}}"
         >
 
         <br><br>
+        
+        <label for="telefone">Telefone: </label>
+        <input type="text" name="telefone" id="telefone" placeholder="Telefone..."
+            required value="{{ old('telefone') }}">
+        <br><br>
+
+        <label for="idade">Idade: </label>
+        <input type="number" name="idade" id="idade" placeholder="Idade..."
+            required value="{{ old('idade') }}">
+        <br><br>
+
+        <label for="data_nascimento">Data de Nascimento: </label>
+        <input type="date" name="data_nascimento" id="data_nascimento"
+            required value="{{ old('data_nascimento') }}">
+        <br><br>
+
+        <label for="endereco">Endereço: </label>
+        <input type="text" name="endereco" id="endereco" placeholder="Endereço..."
+            required value="{{ old('endereco') }}">
+        <br><br>
+
         <label for="turma_id">ID DA TURMA: </label>
-       
        
         <select name="turma_id" id="turma_id">
             @foreach ($turmas as $turma)
@@ -48,3 +69,4 @@
         </div>
     @endif
 </body>
+</html>
