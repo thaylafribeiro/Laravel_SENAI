@@ -1,29 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Produto;
+use App\Models\Setores;
 
-use App\Models\Setor;
 use Illuminate\Http\Request;
 
-class SetorController extends Controller{
-
-    public function listarSetor(){
-        $setores = Setor::all(); // usando o all() pq quero apenas listar
-        return view('listarSetor', compact('setores'));
+class SetorController extends Controller
+{
+    public function listar(){
+        $setores = Setores::all();
+        return view('listarSetores', compact('setores'));
     }
 
     public function add(Request $request){
 
         $request->validate([
             'nome' => 'required|string|max:255',
-            'nCorredor' => 'required|string|max:255'
+            'num_setor' => 'required|numeric|max:255',
+            // para poder ser nulo ou existir na tabela setores
         ]);
 
-        Setor::create([
+        Setores::create([
             'nome' => $request->nome,
-            'nCorredor' => $request->nCorredor
+            'num_setor' => $request->num_setor
         ]);
 
-        return redirect()->back()->with('success','Setor cadastrado com sucesso!');
+        return redirect()->back()->with('success','Setor Cadastrado com sucesso!');
+
     }
+
 }
