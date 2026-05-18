@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\Filme;
+use App\Models\Autor;
+
+// Todos os codigos feitos foi com base nos codigos do leonardo, porem, foram feitos ajustes para o funcionamento do que foi pedido
+
+use Illuminate\Http\Request;
+
+class AutorApiController extends Controller
+{
+    public function listarApi(){
+        $autores = Autor::all();
+        return response()->json($autores, 200);
+    }
+
+    public function addApi(Request $request){
+        $request->validate([
+        'nome' => 'required|string|max:255',
+        'dataNascimento' => 'required|date',
+        'email' => 'required|email|unique:autores,email',
+        'telefone' => 'required|string|max:20',
+    ]);
+        
+    $autor = Autor::create([
+        'nome' => $request->nome,
+        'dataNascimento' => $request->dataNascimento,
+        'email' => $request->email,
+        'telefone' => $request->telefone,
+    ]);
+
+        return response()->json([
+            'message' => 'Autor Criado',
+            'autor' => $autor
+        ], 200);
+    }
+
+    public function updateApi(Request $request, $id){
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'dataNascimento' => 'required|date',
+            'email' => 'required|email|unique:autores,email',
+            'telefone' => 'required|string|max:20',
+        ]);
+
+        $autor = Autor::findOrFail($id); 
+
+        $autor->nome = $request->nome; 
+        $autor->dataNascimento = $request->dataNascimento;
+        $autor->email = $request->email;
+        $autor->telefone = $request->telefone;
+
+        $autor->save();
+
+        return response()->json([
+            'message' => "Autor Atualizado!",
+            'autor' => $autor
+        ], 200);
+    }
+
+    public function deletarApi($id){
+        $autor = Autor::findOrFail($id); 
+        $autor->delete(); 
+
+        return response()->json([
+            'message' => "Autor Deletado com Sucesso!",
+            'autor' => $autor
+        ], 200);
+    }
+}
+
