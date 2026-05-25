@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Filme;
 use App\Models\Autor;
-
-// Todos os codigos feitos foi com base nos codigos do leonardo, porem, foram feitos ajustes para o funcionamento do que foi pedido
-
 use Illuminate\Http\Request;
+// Todos os codigos feitos foi com base nos codigos do leonardo, porem, foram feitos ajustes para o funcionamento do que foi pedido
 
 class AutorApiController extends Controller
 {

@@ -12,15 +12,13 @@ Route::get('/', function () {
 
 Route::get('/filme/listar', [FilmeController::class, 'listar']) -> name('filme.listar');
 
-
 Route::get('/filme/cadastrar',[FilmeController::class, 'cadastro']
 )->name('filme.cadastro');
 
-// POST - enviar os dados para cadastrar usuários
 Route::post('/filme/salvar', [FilmeController::class, 'add'])
 ->name('filme.salvar');
 
-// Tela de Atualizar
+// Atualizar
 Route::get('/filme/{id}/atualizar', [FilmeController::class, 'atualizar'])
 ->name('filme.atualizar');
 
@@ -29,7 +27,6 @@ Route::put('/filme/{id}/update', [FilmeController::class, 'update'])
 
 Route::delete('/filme/{id}', [FilmeController::class, 'deletar'])
 ->name('filme.deletar');
-
 
 // AUTOR
 
