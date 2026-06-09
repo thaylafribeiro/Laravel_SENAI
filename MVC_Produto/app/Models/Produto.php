@@ -1,4 +1,5 @@
 <?php
+// Estou no arquivo Produto.php
 
 namespace App\Models;
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Produto</title>
+    <title>Cadastro do Usuário</title>
 </head>
 <style>
     *{
@@ -97,64 +97,38 @@
     }
 </style>
 <body>
-    <h1>Cadastro Produto</h1>
+    <h1>Cadastro do Usuário</h1>
 
-    <br>
-        <form action="{{route('logout')}}" method="POST">
-            @csrf
-            <button type="submit" value="Sair">Sair</button>
-        </form>
-    </br>
-
-    <a href="{{route('produto.listar')}}">Listar Produto</a>
-    <br>
 
     @if(session('success'))
         <p style="color:green">{{ session('success')}}</p>
     @endif
 
-    <form action="{{route('produto.salvar') }}" method="POST">
+    <form action="{{route('usuario.salvar') }}" method="POST">
         @csrf
         <label for="nome">Nome: </label>
         <input type="text" name="nome" id="nome" placeholder="Nome..."
             require value="{{ old('nome') }}"
         >
         <br><br>
-        <label for="quantidade">Quantidade: </label>
-        <input type="number" name="quantidade" id="quantidade" placeholder="Quantidade..."
-            required value="{{ old('quantidade')}}"
-        >
-        <br><br>
-        <label for="valor">Valor: </label>
-        <input type="number" name="valor" id="valor" placeholder="Valor..."
-            required value="{{ old('valor')}}"
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" placeholder="Email..."
+            required value="{{ old('email')}}"
         >
 
         <br><br>
-        <label for="setor_id">Setores: </label>
-        <select name="setor_id" id="setor_id">
-            @foreach ($setores as $setor)
-                <option value="{{$setor->id}}">{{$setor->nome}}</option>
-            @endforeach
+        <label for="password">Senha: </label>
+        <input type="password" name="password" id="password" placeholder="Senha..."
+            required value="{{ old('password')}}"
+        >
+          
+        <br><br>
+        <label for="tipo">Tipo: </label>
+        <select name="tipo" id="tipo" required>
+            <option value="">Selecione o tipo de usuário</option>
+            <option value="usuario" >Usuario</option>
+            <option value="admin" >Administrador</option>
         </select>
-
-        <br><br>
-        <label for="descricao">Descricao: </label>
-        <input type="text" name="descricao" id="descricao" placeholder="Descricao..."
-            required value="{{ old('descricao')}}"
-        >
-
-        <br><br>
-        <label for="tamanho">Tamanho: </label>
-        <input type="number" name="tamanho" id="tamanho" placeholder="Tamanho..."
-            required value="{{ old('tamanho')}}"
-        >
-
-        <br><br>
-        <label for="peso">Peso: </label>
-        <input type="number" name="peso" id="peso" placeholder="Peso..."
-            required value="{{ old('peso')}}"
-        >
 
         <input type="submit" value="Cadastrar">
     </form>

@@ -45,15 +45,15 @@ class FilmeApiController extends Controller
             'orcamento' => 'required|numeric',
         ]);
 
-        $filme = Filme::findOrFail($id); 
+        $filme = Filme::findOrFail($id); // Busca o filme para ser atualizado
 
-        $filme->titulo = $request->titulo; 
+        $filme->titulo = $request->titulo; // Atualizando o campo titulo
         $filme->dataLancamento = $request->dataLancamento;
         $filme->sinopse = $request->sinopse;
         $filme->genero = $request->genero;
         $filme->orcamento = $request->orcamento;
 
-        $filme->save(); 
+        $filme->save(); // Salvando no banco de dados(fazendo update)
 
         return response()->json([
             'message' => "Filme Atualizado!",
@@ -62,8 +62,8 @@ class FilmeApiController extends Controller
     }
 
     public function deletarApi($id){
-        $filme = Filme::findOrFail($id); 
-        $filme->delete();
+        $filme = Filme::findOrFail($id); // Buscar o filme pelo ID
+        $filme->delete(); // Deletar o filme do banco de dados
 
         return response()->json([
             'message' => "Filme Deletado com Sucesso!",

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Filme;
 use App\Models\Autor;
+
 use Illuminate\Http\Request;
-// Todos os codigos feitos foi com base nos codigos do leonardo, porem, foram feitos ajustes para o funcionamento do que foi pedido
 
 class AutorApiController extends Controller
 {
@@ -42,14 +42,14 @@ class AutorApiController extends Controller
             'telefone' => 'required|string|max:20',
         ]);
 
-        $autor = Autor::findOrFail($id); 
+        $autor = Autor::findOrFail($id); // Busca o autor para ser atualizado
 
-        $autor->nome = $request->nome; 
+        $autor->nome = $request->nome; // Atualizando o campo nome
         $autor->dataNascimento = $request->dataNascimento;
         $autor->email = $request->email;
         $autor->telefone = $request->telefone;
 
-        $autor->save();
+        $autor->save(); // Salvando no banco de dados(fazendo update)
 
         return response()->json([
             'message' => "Autor Atualizado!",
@@ -58,8 +58,8 @@ class AutorApiController extends Controller
     }
 
     public function deletarApi($id){
-        $autor = Autor::findOrFail($id); 
-        $autor->delete(); 
+        $autor = Autor::findOrFail($id); // Buscar o autor pelo ID
+        $autor->delete(); // Deletar o autor do banco de dados
 
         return response()->json([
             'message' => "Autor Deletado com Sucesso!",
@@ -67,4 +67,3 @@ class AutorApiController extends Controller
         ], 200);
     }
 }
-

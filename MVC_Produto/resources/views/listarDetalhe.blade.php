@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_','-',app()->getLocale()) }}">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Setor</title>
+    <title>Lista de Detalhes</title>
 </head>
+
 <style>
     *{
         margin: 0;
@@ -27,7 +27,7 @@
     form{
         max-width: 600px;
         margin: auto;
-        background: white;
+        background: #fff;
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -53,25 +53,24 @@
     input:focus,
     select:focus{
         outline: none;
-        border-color: #28a745;
-        box-shadow: 0 0 5px rgba(40,167,69,0.3);
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52,152,219,0.3);
     }
 
-    input[type="submit"]{
+    button{
         width: 100%;
         padding: 12px;
         border: none;
         border-radius: 5px;
-        background: #28a745;
+        background: #3498db;
         color: white;
         font-size: 16px;
-        font-weight: bold;
         cursor: pointer;
         transition: 0.3s;
     }
 
-    input[type="submit"]:hover{
-        background: #218838;
+    button:hover{
+        background: #2980b9;
     }
 
     p[style*="green"]{
@@ -97,39 +96,36 @@
     }
 </style>
 <body>
-    <h1>Cadastro Setor</h1>
 
-    <br>
-    <a href="{{route('produto.listar')}}">Listar Produto</a>
-    <br>
+<h1>Lista de Detalhes</h1>
 
-    @if(session('success'))
-        <p style="color:green">{{ session('success')}}</p>
-    @endif
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DESCRIÇÃO</th>
+            <th>TAMANHO</th>
+            <th>PESO</th>
+            <th>PRODUTO</th>
+        </tr>
+    </thead>
 
-    <form action="{{route('setor.salvar') }}" method="POST">
-        @csrf
-        <label for="nome">Nome: </label>
-        <input type="text" name="nome" id="nome" placeholder="Nome..."
-            require value="{{ old('nome') }}"
-        >
-        <br><br>
-        <label for="num_setor">Numero setor: </label>
-        <input type="number" name="num_setor" id="num_setor" placeholder="Numero Setor..."
-            required value="{{ old('num_setor')}}"
-        >
+    <tbody>
+        @forelse($detalhes as $detalhe)
+            <tr>
+                <td>{{ $detalhe->id }}</td>
+                <td>{{ $detalhe->descricao }}</td>
+                <td>{{ $detalhe->tamanho }}</td>
+                <td>{{ $detalhe->peso }}</td>
+                <td>{{ $detalhe->produto?->nome }}</td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="5">Nenhum detalhe encontrado</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
 
-        <input type="submit" value="Cadastrar">
-    </form>
-
-    @if($errors->any())
-        <div style="color:red">
-            <ul>
-                @foreach ($errors->all() as $erro)
-                    <li>{{ $erro }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 </body>
 </html>

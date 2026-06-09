@@ -8,10 +8,29 @@ use Illuminate\Http\Request;
 
 class SetorController extends Controller
 {
-    public function listar(){
-        $setores = Setores::all();
-        return view('listarSetores', compact('setores'));
+    public function listar(Request $request){
+         try {
+            $query = Setores::query();
+
+            if ($request->filled('nome')){
+                $query->where('nome', 'like', '%'.$request->nome.'%');        
+            }
+
+            if ($request->filled('num_setor')){
+                $query->where('num_setor', $request->num_setor);        
+            }
+
+            $setores = $query->get();
+            return view ('listarSetor', compact ('setores'));
+
+            } catch (\Exception $e) {
+            return view('listarSetor', [
+                'setores' => collect(),
+                'erro' => 'Erro interno no servidor'
+        ]);
+
     }
+}
 
     public function add(Request $request){
 
@@ -23,7 +42,7 @@ class SetorController extends Controller
 
         Setores::create([
             'nome' => $request->nome,
-            'num_setor' => $request->num_setor
+            'ncorredor' => $request->num_setor
         ]);
 
         return redirect()->back()->with('success','Setor Cadastrado com sucesso!');

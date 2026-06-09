@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Produto;
 use App\Models\Setores;
@@ -15,6 +14,10 @@ class ProdutoController extends Controller
     }
 
     public function cadastro(){
+        if(auth()->user()->tipo != 'usuario'){
+            abort(403, 'Acesso negado');
+        }
+
         $setores = Setores::get();
         return view('cadastroProduto', compact('setores'));
     }
@@ -73,6 +76,12 @@ class ProdutoController extends Controller
 
         $produto->save(); // salvando no banco de dados(fazendo update)
 
+        $detalhe = DetalheProdutos::where('produto_id', $produto->id)->first();
+
+    if (!$detalhe) {
+        $detalhe = new DetalheProdutos();
+        $detalhe->produto_id = $produto->id;
+}
         $detalhe->descricao = $request->descricao;
         $detalhe->tamanho = $request->tamanho;
         $detalhe->peso = $request->peso;
@@ -82,14 +91,15 @@ class ProdutoController extends Controller
         return redirect()->back()->with('success','Produto atualizado com suceso');
     }
 
-    public function deletar($id){
+   public function deletar($id){
         $produto = Produto::findOrFail($id); // buscar o produto para depois deletar
         $detalhe = DetalheProdutos::where('produto_id', $produto->id)->first();
+        $produto->detalhesProdutos?->delete(); // faz o delete da tabela segundaria primeiro
         $produto->delete(); // faz o delete no banco de dados
-        $detalhe->deletar();
+        $detalhe->delete();
 
         return redirect()->route('produto.listar')
             ->with('success','Aluno excluído com sucesso!');
-    }
+   }   
 
 }
